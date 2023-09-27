@@ -52,6 +52,7 @@ fetch('https://api.chucknorris.io/jokes/random')
     `
     const btn = document.getElementById('btn')
     btn.addEventListener('click' , jokes )
+})
 .catch(error => console.log(error))
-})}
+}
 jokes()
