@@ -55,4 +55,20 @@ fetch('https://api.chucknorris.io/jokes/random')
 })
 .catch(error => console.log(error))
 }
-jokes()
+
+
+const wheatherApp = (city)=>{
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=9204675af4da182628782672cf49177b`
+    fetch(url)
+    .then(response => response.json())
+    .then(data => {
+    const container = document.getElementById('users')
+    container.innerHTML =`<h1>${data.main.temp}</h1>`
+    })
+    .catch(error => console.log(error))
+}
+    submit.addEventListener('click' , (e)=>{
+        e.preventDefault();
+        let city = document.getElementById("city").value
+        wheatherApp(city)
+    })
