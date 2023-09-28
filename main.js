@@ -63,12 +63,41 @@ const wheatherApp = (city)=>{
     .then(response => response.json())
     .then(data => {
     const container = document.getElementById('users')
-    container.innerHTML =`<h1>${data.main.temp}</h1>`
+    container.innerHTML =`<h1>the tempature in ${city} is: ${data.main.temp}C</h1>`
     })
     .catch(error => console.log(error))
 }
+    // submit.addEventListener('click' , (e)=>{
+    //     e.preventDefault();
+    //     let city = document.getElementById("city").value
+    //     wheatherApp(city)
+    // })
+
+    const wheather6DaysApp = (city)=>{
+    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=9204675af4da182628782672cf49177b`
+    fetch(url)
+    .then(response => response.json())
+    .then(data =>{
+    const container = document.getElementById('users')
+    let previousDate = null;
+    container.innerHTML += `
+        <h1>in ${city}</h1>`
+    for (let i = 0; i < data.list.length; i++) {
+        container.innerHTML += `
+        <p>the temp: ${data.list[i].main.temp}</p>
+        <p>the time is ${data.list[i].dt_txt.substr(11,data.list[i].length)}</p>
+        <br>`
+        if (data.list[i].dt_txt.substr(0,10) !== previousDate) {
+            container.innerHTML += `<h1>Date: ${data.list[i].dt_txt.substr(0,10)}</h1>`;
+            previousDate = data.list[i].dt_txt.substr(0,10);
+    }
+    }})
+    .catch(error => console.log(error))
+    }
+
     submit.addEventListener('click' , (e)=>{
         e.preventDefault();
         let city = document.getElementById("city").value
-        wheatherApp(city)
+        wheather6DaysApp(city)
     })
+    
